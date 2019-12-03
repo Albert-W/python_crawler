@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>行业、城市、工资对比关系柱形图</title>
+    <script src="../static/js/echarts.min.js"></script>
+    <script src="../static/js/jquery.js"></script>
+</head>
+<body>
+<div id="main" style="height: 500px"></div>
+<script type="text/javascript">
+    $.ajax({
+        type:'get',
+        url:'/get_data',
+        dataType:'json',
+        success:function (returndata) {
+            console.log(returndata);
+            test_bar(returndata)
+        }
+    });
+    function test_bar(series_data) {
+        var mychart = echarts.init(document.getElementById("main"));
+        option = {
+            title: {
+                text: '行业、城市、工资对比关系柱形图',
+                left: 'center'
+            },
+            tooltip: {},
+            legend: {
+                orient: "vertical",
+                // data: ['城市一', '城市二', '城市三', '城市四', '城市五'],
+                data:series_data['legend_data'],
+                left: 'right'
+            },
+            xAxis: {
+                // data: ['行业一', '行业二', '行业三', '行业四', '行业五']
+                data:series_data['x_name']
+            },
+            yAxis: {},
+            series: series_data['data']
+        };
+        mychart.setOption(option);
+    }
+
+</script>
+
+</body>
+</html>
