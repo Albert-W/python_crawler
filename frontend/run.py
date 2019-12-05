@@ -1,11 +1,5 @@
 
 from flask import Flask, render_template, jsonify
-# import os,sys,inspect
-# current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-# parent_dir = os.path.dirname(current_dir)
-# sys.path.insert(0, parent_dir) 
-# import sys
-# sys.path.insert(0,'..')
 import sys,os ,json
 sys.path.append(os.getcwd())
 from backend.dbTool import zhihu_sqlTool
@@ -43,8 +37,8 @@ def fetch_echart_data():
     topx = zhihu_sqlTool.query_topx()
     # 最前几项，显示高票答主
     info['echart_2'] = {
-        'x_name' : topx['x_name'][:config.top],
-        'data' :topx['data'][:config.top]
+        'x_name' :[item['name'] for item in topx[:config.top]],
+        'data' :topx[:config.top]
     }
 
     # 点赞数量分析,折线图

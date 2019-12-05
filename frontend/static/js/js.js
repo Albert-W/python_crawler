@@ -9,7 +9,7 @@
         success: function (returnData) {
             // console.log(returnData['data']);
             // 填充统计数据
-            filler(returnData['json'], returnData['vote_sum'], returnData['answer'])
+            filler(returnData['json'], returnData['vote_sum'])
             // 显示前七名高票答主
             echarts_2(returnData['echart_2']);
             // 点赞数据分析，折线图
@@ -48,27 +48,41 @@
     function display( ){
         // console.log(item)
         var author = document.querySelector('#author')
-        author.innerHTML = answer['data'][i]['name']
+        author.innerHTML = answer[i]['name']
         var author = document.querySelector('#vote')
-        author.innerHTML = answer['data'][i]['value']
+        author.innerHTML = answer[i]['value']
         var rank = document.querySelector('#rank')
         rank.innerHTML = i+1
         var content = document.querySelector("#content")
-        content.innerHTML = answer['data'][i]['content']
+        content.innerHTML = answer[i]['content']
     }
 
     // 添加点击事件
+    var inputRank = document.querySelector('#inputRank')
     var previous = document.querySelector('#previous')
     previous.addEventListener("click", function(){
         i = i-1
-        if (i<0){i = 0}
+        inputRank.value = i+1
+        if (i<0){i = answer.length-1}
         display()
     })
 
     var next = document.querySelector('#next')
     next.addEventListener('click',function(){
         i = i+1
+        inputRank.value = i+1
+        if (i>answer.length){i=0}
         display()
+    })
+
+    inputRank.addEventListener("keyup", function(event){
+        if(event.keyCode === 13){
+            event.preventDefault();
+            console.log(inputRank)
+            console.log(inputRank.value)
+            i = parseInt(inputRank.value)-1
+            display()
+        }
     })
 
 

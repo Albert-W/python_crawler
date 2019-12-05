@@ -84,15 +84,17 @@ class dbTool(object):
         # print(info)
         return info
 
+    # 查询排名前config.topTotal 的答案
+    # 返回原始数据，在run.py中包装，减少数据量
     def query_topx(self):
         info = {}
         result = self.sqlite_session.query(zhihuTables.authorName ,zhihuTables.vote, zhihuTables.content).order_by(zhihuTables.vote.desc()).limit(config.topTotal).all()
         data = [{"name":x[0], "value":x[1],"content":x[2]} for x in result ]
-        name_list = [item['name'] for item in data]
-        info['x_name'] = name_list
-        info['data'] = data  
+        # name_list = [item['name'] for item in data]
+        # info['x_name'] = name_list
+        # info['data'] = data  
         # print(info)
-        return info
+        return data
 
     def query_byDay(self):
         info = {}

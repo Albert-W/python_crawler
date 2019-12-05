@@ -6,7 +6,7 @@
 	box-sizing: border-box}
 *,body{padding:0px;	margin:0px;font-family: "微软雅黑";}
 @font-face{font-family:electronicFont;src:url(../font/DS-DIGIT.TTF)}
-body{ background:#000d4a url(../images/bg.jpg) center top; background-size:cover;color:#666;font-size: .1rem;}
+body{ background:#000d4a url(../images/bg.jpg) center top; background-size:cover;color:#666;font-size: .15rem;}
 li{ list-style-type:none;}
 table{}
 i{ margin:0px; padding:0px; text-indent:0px;}
