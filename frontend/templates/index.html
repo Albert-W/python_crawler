@@ -56,13 +56,22 @@
 <div class="mainbox">
     <ul class="clearfix">
         <li>
-            <div class="boxall" style="height: 3.2rem">
-                <div class="alltitle">题目</div>
-                <div class="allnav" id="echart1"></div>
+            <div class="boxall" style="height: 1.6rem">
+                <div class="alltitle">题目信息</div>
+                <div class="allnav" >
+                    <div class= 'title' style="color: aqua;"></div>
+                </div>
+                <div class="boxfoot"></div>
+            </div>
+            <div class="boxall" style="height: 1.6rem">
+                <div class="alltitle">详情</div>
+                <div class="allnav" >
+                    <div class="content" style="color: aqua;"></div>
+                </div>
                 <div class="boxfoot"></div>
             </div>
             <div class="boxall" style="height: 3.2rem">
-                <div class="alltitle">最高赞答主</div>
+                <div class="alltitle">TopX高赞答主</div>
                 <div class="allnav" id="echart2"></div>
                 <div class="boxfoot"></div>
             </div>
@@ -82,22 +91,56 @@
             <div class="bar">
                 <div class="barbox">
                     <ul class="clearfix">
-
+                        <li class="pulll_left counter"></li>
+                        <li class="pulll_right counter"></li>
                     </ul>
                 </div>
                 <div class="barbox2">
                     <ul class="clearfix">
-                        <li class="pulll_left">总回答量</li>
-                        <li class="pulll_left">今日回答量</li>
+                        <li class="pulll_left">回答数</li>
+                        <li class="pulll_right">关注数</li>
                     </ul>
                 </div>
             </div>
-            <div class="map">
-                <div class="map1"><img src="../static/picture/lbx.png"></div>
-                <div class="map2"><img src="../static/picture/jt.png"></div>
-                <div class="map3"><img src="../static/picture/map.png"></div>
-                <div class="map4" id="map_1"></div>
+            <div class="bar">
+                <div class="barbox">
+                    <ul class="clearfix">
+                        <li class="pulll_left vote"></li>
+                        <li class="pulll_right read"></li>
+                    </ul>
+                </div>
+                <div class="barbox2">
+                    <ul class="clearfix">
+                        <li class="pulll_left">点赞总数</li>
+                        <li class="pulll_right">阅读总数</li>
+                    </ul>
+                </div>
             </div>
+            <div class="boxall">
+                <div class="alltitle">
+                    作者：<span id = "author" style="color: #ffeb7b;"></span> 
+                    点赞数：<span id = 'vote' style="color:#ffeb7b;"></span>
+                    排名：<span id='rank' style="color:#ffeb7b;"></span>
+                </div>
+                <div class="allnav" id="content" style="color: whitesmoke;"></div>
+            </div>
+
+
+
+
+                        <button class="pulll_left" id='previous' style="z-index: 100000 !important">上一页</button>
+                        
+                        <button class="pulll_right" id='next'>下一页</button>
+
+
+
+
+            <!-- <div class="map"> -->
+                <!-- <div class="map1"><img src="../static/picture/lbx.png"></div> -->
+                <!-- <div class="map2"><img src="../static/picture/jt.png"></div> -->
+                <!-- <div class="map3"><img src="../static/picture/map.png"></div> -->
+                <!-- <div class="map4" id="map_1"></div> -->
+            <!-- </div> -->
         </li>
         <li>
             <div class="boxall" style="height:3.4rem">

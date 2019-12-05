@@ -40,11 +40,15 @@ class Crawlzhihu(object):
         # 关注人数
         fol_search = re.compile(config.folRegex)
         followers = fol_search.findall(raw_result)[0]
+        # 阅读数
+        read_search = re.compile(config.ReadRegex)
+        read_count = read_search.findall(raw_result)[0]
         d = {
             "title": title,
             "content":content,
             "ans_c" : ans_c,
-            "followers" : followers
+            "followers" : followers,
+            "read_count":read_count
         }
         # 临时存储上述信息
         with open(config.jpath,'w') as fw:
@@ -65,7 +69,7 @@ class Crawlzhihu(object):
         for answer in answers:
             # print(answer)
             zhihu_sqlTool.insert_item(answer)
-            time.sleep(0.01)
+            # time.sleep(0.03)
             # print(answer['author']['name'])
         # print(json_data)
 
@@ -84,11 +88,13 @@ if __name__ == "__main__":
     # 获取页面数
     crawler.get_page()
     # 引入多进程，加快爬虫
-    pool = multiprocessing.Pool(4)
+    # pool = multiprocessing.Pool(3)
     # 最后一页的下标为[crawler.pages-1]
-    for i in range(0, crawler.pages ):
+    # for i in range( crawler.pages ):
+    for i in range(0, 0 ):
         # print("this is page:" + str(i))
-        pool.apply_async(crawler.get_onepage,args=(i,))
-    pool.close()
-    pool.join()    
+        crawler.get_onepage(i)
+        # pool.apply_async(crawler.get_onepage,args=(i,))
+    # pool.close()
+    # pool.join()    
     # crawler.get_onepage(3)

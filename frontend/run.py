@@ -30,28 +30,36 @@ def fetch_echart_data():
     with open(config.jpath,'r') as f:
         temp = json.load(f)
     # 将json中的数据传给前端
-    print(temp)
+    # print(temp)
     info['json'] = temp
-    
+    # info['topx'] = topx
     # 从数据库获得数据
     data = zhihu_sqlTool.query_vote()
-    info['echart_1'] = data
-    # 薪资发布数量分析
-    info['echart_2'] = data 
-    # 岗位数量分析,折线图
+    vote_sum = zhihu_sqlTool.query_votesum()
+    info['vote_sum'] = vote_sum
+
+    
+    # 将前n名的数据传给前端ajax
+    topx = zhihu_sqlTool.query_topx()
+    # 最前几项，显示高票答主
+    info['echart_2'] = {
+        'x_name' : topx['x_name'][:config.top],
+        'data' :topx['data'][:config.top]
+    }
+
+    # 点赞数量分析,折线图
     info['echart_4'] = data
-    #工作年限分析
-    info['echart_5'] = data
-    # #学历情况分析
-    # info['echart_6'] = data
-    # #融资情况
-    # info['echart_31'] = data
-    # #公司规模
-    # info['echart_32'] = data
-    # #岗位要求
-    # info['echart_33'] = data
-    #各地区发布岗位数
-    info['map'] = data
+    # 回答随时间数据分析
+    answers = zhihu_sqlTool.query_byDay()
+    # print(answers)
+    info['echart_5'] = answers
+
+    # 取答案传给前端
+    # answer = zhihu_sqlTool.query_byId(1)
+    info['answer'] = topx
+
+
+    # info['map'] = data
     # print(info)
     # print("this is info echart_4")
     # print(info['echart_4'])

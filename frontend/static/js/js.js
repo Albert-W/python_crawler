@@ -1,24 +1,76 @@
 ﻿$(function () {
-    // 请求数据
+    // 于是保存显示答案的显示
+    var answer 
+    var i = 0
     $.ajax({
         type: 'get',
         url: '/fetch_echart_data',
         dataType: 'json',
         success: function (returnData) {
             // console.log(returnData['data']);
-            // 调用echarts
-            console.log(returnData['json'])
-            echarts_1(returnData);
-            echarts_2(returnData);
-            echarts_4(returnData);
-            echarts_5(returnData);
+            // 填充统计数据
+            filler(returnData['json'], returnData['vote_sum'], returnData['answer'])
+            // 显示前七名高票答主
+            echarts_2(returnData['echart_2']);
+            // 点赞数据分析，折线图
+            echarts_4(returnData['echart_4']);
+            // 回答随时间数据分析
+            echarts_5(returnData['echart_5']);
+            // 将回答保存下来，以便按扭调用
+            answer = returnData['answer']
+            display( );
             // echarts_6(returnData);
             // echarts_31(returnData);
             // echarts_32(returnData);
             // echarts_33(returnData);
-            map(returnData);
+            // map(returnData);
         }
     });
+    // 填充单点信息
+    function filler(data, vote_sum){
+        var left = document.querySelector('li.pulll_left.counter')
+        left.innerHTML = data['ans_c']
+        var right = document.querySelector('li.pulll_right.counter')
+        right.innerHTML = data['followers']
+        var title = document.querySelector('div.title')
+        title.innerHTML = data['title']
+        var content = document.querySelector('div.content')
+        content.innerHTML = data['content']
+        var vote = document.querySelector('li.pulll_left.vote')
+        vote.innerHTML = vote_sum
+        var read = document = document.querySelector('li.pulll_right.read')
+        read.innerHTML = data['read_count']
+
+        // 填充答案
+        
+    }
+    // 显示排名第i 的数据
+    function display( ){
+        // console.log(item)
+        var author = document.querySelector('#author')
+        author.innerHTML = answer['data'][i]['name']
+        var author = document.querySelector('#vote')
+        author.innerHTML = answer['data'][i]['value']
+        var rank = document.querySelector('#rank')
+        rank.innerHTML = i+1
+        var content = document.querySelector("#content")
+        content.innerHTML = answer['data'][i]['content']
+    }
+
+    // 添加点击事件
+    var previous = document.querySelector('#previous')
+    previous.addEventListener("click", function(){
+        i = i-1
+        if (i<0){i = 0}
+        display()
+    })
+
+    var next = document.querySelector('#next')
+    next.addEventListener('click',function(){
+        i = i+1
+        display()
+    })
+
 
     function map(input_data) {
         // 基于准备好的dom，初始化echarts实例
@@ -529,7 +581,7 @@
     // 直方图，横轴为类别
     function echarts_1(data) {
         // 基于准备好的dom，初始化echarts实例
-        console.log("this is echart 1")
+        // console.log("this is echart 1")
         var myChart = echarts.init(document.getElementById('echart1'));
 
         option = {
@@ -647,8 +699,8 @@
             },
             xAxis: [{
                 type: 'category',
-                data: ['薪资一', '薪资二', '薪资三', '薪资四', '薪资五', '薪资六', '薪资七'],
-                // data: data['echart_2']['x_name'],
+                // data: ['薪资一', '薪资二', '薪资三', '薪资四', '薪资五', '薪资六', '薪资七'],
+                data: data['x_name'],
                 axisLine: {
                     show: true,
                     lineStyle: {
@@ -701,8 +753,8 @@
                 {
 
                     type: 'bar',
-                    data: [1500, 1200, 600, 200, 300, 300, 900],
-                    // data: data['echart_2']['data'],
+                    // data: [1500, 1200, 600, 200, 300, 300, 900],
+                    data: data['data'],
                     barWidth: '35%', //柱子宽度
                     itemStyle: {
                         normal: {
@@ -746,7 +798,7 @@
             xAxis: [{
                 type: 'category',
                 // data: ['经验一', '经验二', '经验三', '经验四', '经验五', '经验六', '经验七', '经验八'],
-                data: data['echart_5']['x_name'],
+                data: data['x_name'],
                 axisLine: {
                     show: true,
                     lineStyle: {
@@ -798,7 +850,7 @@
             series: [{
                 type: 'bar',
                 // data: [2, 3, 3, 9, 15, 12, 6, 4, 6, 7, 4, 10],
-                data: data['echart_5']['data'],
+                data: data['data'],
                 barWidth: '35%', //柱子宽度
                 itemStyle: {
                     color: '#2f89cf',
@@ -820,7 +872,7 @@
     function echarts_4(data) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart4'));
-        console.log("this is echart 4")
+        // console.log("this is echart 4")
         option = {
             tooltip: {
                 trigger: 'axis',
@@ -833,7 +885,7 @@
             legend: {
                 top: '0%',
                 // data: ['python', 'java'],
-                data: ['python'],
+                data: ['纵轴：人数, 横轴：赞数'],
                 textStyle: {
                     color: 'rgba(255,255,255,.5)',
                     fontSize: '12'
@@ -863,8 +915,8 @@
 
                 },
 
-                data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
-                // data: data['echart_4']['x_name']
+                // data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+                data: data['x_name']
 
             }
             ],
@@ -918,8 +970,8 @@
                         borderColor: 'rgba(221, 220, 107, .1)',
                         borderWidth: 12
                     },
-                    data: [3, 4, 3, 4, 3, 4, 3, 6, 2, 4, 2, 4, 3, 4, 3, 4, 3, 4, 3, 6, 2, 4, 2, 4]
-                    // data: data['echart_4']['data']
+                    // data: [3, 4, 3, 4, 3, 4, 3, 6, 2, 4, 2, 4, 3, 4, 3, 4, 3, 4, 3, 6, 2, 4, 2, 4]
+                    data: data['data']
                 },
                 // {
                 //     name: 'java',
