@@ -65,3 +65,8 @@ Flask 路由的实现，包括两个功能。
 * vote = Column(Integer)
 * content = Column(Text)
 
+## 使用方法
+1. 修改config.py , 输入想爬的网页，对应的正则表达式。 
+2. 执行create_table.py, 会生成数据库以表单。 
+3. 执行zhihu.py, 会爬取对应网页，并输入到数据库。默认：zhihu.db
+4. 执行run.py, 启动网页服务器，通过浏览器访问。默认： http://127.0.0.1:5000/zhihu

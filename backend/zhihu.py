@@ -90,8 +90,8 @@ if __name__ == "__main__":
     # 引入多进程，加快爬虫
     # pool = multiprocessing.Pool(3)
     # 最后一页的下标为[crawler.pages-1]
-    # for i in range( crawler.pages ):
-    for i in range(0, 0 ):
+    for i in range( crawler.pages ):
+    # for i in range(0, 0 ):
         # print("this is page:" + str(i))
         crawler.get_onepage(i)
         # pool.apply_async(crawler.get_onepage,args=(i,))
